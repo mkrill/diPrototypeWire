@@ -1,0 +1,6 @@
+# Please insert production settings here
+address:
+  host: "wiremock-acc-proxy-pacman-01.support.magic.telekom.de"
+  username: '%%ENV:USERNAME%%'
+  password: "%%ENV:PASSWORD%%"
+  useFakeAddressService:  false

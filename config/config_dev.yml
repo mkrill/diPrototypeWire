@@ -1,0 +1,11 @@
+# Please insert production settings here
+address:
+  host: ""
+  username: ""
+  password: ""
+  useFakeAddressService:  true
+availability:
+  host: ""
+  username: ""
+  password: ""
+  useFakeAvailabilityService:  true

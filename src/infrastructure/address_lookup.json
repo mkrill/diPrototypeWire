@@ -1,0 +1,2320 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "## Address Lookup API\n\n",
+    "version": "1.0.0",
+    "title": "Address Lookup"
+  },
+  "host": "address-lookup-proxy-presales-develop-01.support.magic.telekom.de",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "AddressSearch",
+      "description": "Address Search Controller"
+    },
+    {
+      "name": "AddressSuggest",
+      "description": "Address Suggest Controller"
+    },
+    {
+      "name": "AddressSuggestV2",
+      "description": "Address Suggest Controller V2"
+    },
+    {
+      "name": "GeopositionServices",
+      "description": "Geoposition Services Controller"
+    },
+    {
+      "name": "ZipcodeMunicipalityNameList",
+      "description": "Zipcode Municipality Name List Controller"
+    },
+    {
+      "name": "address-deprecated-controller",
+      "description": "Address Deprecated Controller"
+    },
+    {
+      "name": "basic-error-controller",
+      "description": "Basic Error Controller"
+    }
+  ],
+  "paths": {
+    "/api/addressLookup/v1/addressSearch/extended/getKlsId": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Find klsId by address information(uses extended number of fields: houseNumber and houseNumberSupplement)",
+        "operationId": "extendedGetKlsIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseNumber",
+            "in": "query",
+            "description": "House number",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "houseNumberSupplement",
+            "in": "query",
+            "description": "House number supplement",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "municipalityName",
+            "in": "query",
+            "description": "Municipality (city) name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "KlsId was not found for specified address.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/extended/resolveAddressInfo": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Resolve address by address data(uses extended number of fields: houseNumber and houseNumberSupplement)",
+        "operationId": "extendedResolveAddressInfoUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseNumber",
+            "in": "query",
+            "description": "House number",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "houseNumberSupplement",
+            "in": "query",
+            "description": "House number supplement",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "municipalityName",
+            "in": "query",
+            "description": "Municipality (city) name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "$ref": "#/definitions/AddressInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "KlsId was not found for specified address.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/giga-areas-location/v1/lookup/addressSearch/extended/resolveFullAddressInfo": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Resolve address by address data(uses extended number of fields: houseNumber and houseNumberSupplement)",
+        "operationId": "extendedResolveFullAddressInfoUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseNumber",
+            "in": "query",
+            "description": "House number",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "houseNumberSupplement",
+            "in": "query",
+            "description": "House number supplement",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "municipalityName",
+            "in": "query",
+            "description": "Municipality (city) name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "$ref": "#/definitions/FullAddressInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "KlsId was not found for specified address.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/getAddressInfo/search": {
+      "post": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Find address by search criteria",
+        "operationId": "searchAddressInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "criteria",
+            "description": "Address search criteria",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AddressSearchCriteria"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressInfo"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Address information was not found.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/getAddressInfo/{klsId}": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Find address by klsId",
+        "operationId": "getAddressInfoByKlsIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "klsId",
+            "in": "path",
+            "description": "KlsId of the address",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "$ref": "#/definitions/AddressInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Address information was not found.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/getFullAddressInfo/search": {
+      "post": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Find full address by search criteria",
+        "operationId": "searchFullAddressInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "criteria",
+            "description": "Address search criteria",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AddressSearchCriteria"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FullAddressInfo"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Address information was not found.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/getFullAddressInfo/{klsId}": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Find full address information by klsId",
+        "operationId": "getFullAddressInfoByKlsIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "klsId",
+            "in": "path",
+            "description": "KlsId of the address",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "$ref": "#/definitions/FullAddressInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Address information was not found.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/getKlsId": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Find klsId by address information",
+        "operationId": "getKlsIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseQualifier",
+            "in": "query",
+            "description": "Full house number",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "municipalityName",
+            "in": "query",
+            "description": "Municipality (city) name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "KlsId was not found for specified address.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSearch/resolveAddressInfo": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Resolve address by address data",
+        "operationId": "resolveAddressInfoUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseQualifier",
+            "in": "query",
+            "description": "Full house number",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "municipalityName",
+            "in": "query",
+            "description": "Municipality (city) name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "$ref": "#/definitions/AddressInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "KlsId was not found for specified address.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/giga-areas-location/v1/lookup/addressSearch/resolveFullAddressInfo": {
+      "get": {
+        "tags": [
+          "AddressSearch"
+        ],
+        "summary": "Resolve address by address data",
+        "operationId": "resolveFullAddressInfoUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseQualifier",
+            "in": "query",
+            "description": "Full house number",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "municipalityName",
+            "in": "query",
+            "description": "Municipality (city) name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "$ref": "#/definitions/FullAddressInfo"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "KlsId was not found for specified address.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSuggest/addressSuggestions/{suggestionType}": {
+      "get": {
+        "tags": [
+          "AddressSuggest"
+        ],
+        "summary": "View a list of address data suggestions for given address data",
+        "description": "Returned address suggestions. \n\nIf suggestionType is ZIPCODE: field zipCode required, suggests: zipCode, minicipalityName, distributionAreaName \nIf suggestionType is LOCALITY: field localityName required, field zipCode optional, suggests: zipCode, minicipalityName, distributionAreaName \nIf suggestionType is STREET: fields zipCode OR localityName(equal to municipalityName), streetName required, suggests: zipCode, minicipalityName, distributionAreaName and streetName \nIf suggestionType is HOUSE: fields zipCode, localityName(equal to municipalityName), streetName, houseQualifier required, suggests: all fields \n",
+        "operationId": "addressSuggestionsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseQualifier",
+            "in": "query",
+            "description": "Full house number(should be filled for suggestion type: HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "localityName",
+            "in": "query",
+            "description": "Municipality(city) or DistributionArea(district) name(should be filled for suggestion type: LOCALITY, STREET, HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name(should be filled for suggestion type: STREET, HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "suggestionType",
+            "in": "path",
+            "description": "Suggestion Type",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "ZIPCODE",
+              "LOCALITY",
+              "STREET",
+              "HOUSE"
+            ]
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code(should be filled for suggestion type: ZIPCODE, STREET, HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressInfo"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/addressSuggest/extended/addressSuggestions/{suggestionType}": {
+      "get": {
+        "tags": [
+          "AddressSuggest"
+        ],
+        "summary": "View a list of address data suggestions for given address data",
+        "description": "Returned address suggestions. \n\nIf suggestionType is ZIPCODE: field zipCode required, suggests: zipCode, minicipalityName, distributionAreaName \nIf suggestionType is LOCALITY: field localityName required, field zipCode optional, suggests: zipCode, minicipalityName, distributionAreaName \nIf suggestionType is STREET: fields zipCode OR localityName(equal to municipalityName), streetName required, suggests: zipCode, minicipalityName, distributionAreaName and streetName \nIf suggestionType is HOUSE: fields zipCode, localityName(equal to municipalityName), streetName, houseNumber required, suggests: all fields \n",
+        "operationId": "extendedAddressSuggestionsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "houseNumber",
+            "in": "query",
+            "description": "House number(should be filled for suggestion type: HOUSE)",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "houseNumberSupplement",
+            "in": "query",
+            "description": "House number supplement(should be filled for suggestion type: HOUSE, or could be empty if houseNumber is filled)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "localityName",
+            "in": "query",
+            "description": "Municipality(city) or DistributionArea(district) name(should be filled for suggestion type: LOCALITY, STREET, HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetName",
+            "in": "query",
+            "description": "Street name(should be filled for suggestion type: STREET, HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "suggestionType",
+            "in": "path",
+            "description": "Suggestion Type",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "ZIPCODE",
+              "LOCALITY",
+              "STREET",
+              "HOUSE"
+            ]
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "description": "Zip code(should be filled for suggestion type: ZIPCODE, STREET, HOUSE)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressInfo"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v1/zipcodeMunicipalityNames/getZipcodeMunicipalityNameList/{onkz}": {
+      "get": {
+        "tags": [
+          "ZipcodeMunicipalityNameList"
+        ],
+        "summary": "Find a list of zipcode and city(municipalityName) list by ONKZ and ASB",
+        "description": "Returned list of unique pairs of zipcode and cities(municipalityNames). In case of nonvalid onkz/asb controller returns empty list",
+        "operationId": "getZipcodeMunicipalityNameListbyOnkzAndAsbUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "asb",
+            "in": "query",
+            "description": "asb (number from 0 to 9999)",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "onkz",
+            "in": "path",
+            "description": "onkz (number from 30 to 39999)",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ZipcodeMunicipalityNameDTO"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v2/addressSuggestions/": {
+      "get": {
+        "tags": [
+          "AddressSuggestV2"
+        ],
+        "summary": "View a list of address data suggestions for given address data",
+        "operationId": "getAddressSuggestionsUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "Address string, by wich suggestion will be done",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false,
+            "x-example": "71254, Ditzingen, Heimburgstraße, 48 /1"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Response filtering fields. Logic is not implemented yet, values are ignored",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressSuggestion"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/addressLookup/v2/addresses/geopositions/coordinateBounds": {
+      "get": {
+        "tags": [
+          "GeopositionServices"
+        ],
+        "summary": "Find a list of addresses inside coordinate bounds",
+        "description": "Returned list of addresses inside coordinate bounds (visible part of map window)",
+        "operationId": "getAddressesByCoordinateBoundsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "eastBound",
+            "in": "query",
+            "description": "eastBound",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "northBound",
+            "in": "query",
+            "description": "northBound",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "southBound",
+            "in": "query",
+            "description": "southBound",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "westBound",
+            "in": "query",
+            "description": "westBound",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information was found.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AddressSuggestion"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1.0/address-lookup/addresses/{klsId}": {
+      "get": {
+        "tags": [
+          "address-deprecated-controller"
+        ],
+        "summary": "Get an address by KLS-ID",
+        "operationId": "getDeprecatedAddressByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "klsId",
+            "in": "path",
+            "description": "klsId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1.0/address-lookup/cities": {
+      "get": {
+        "tags": [
+          "address-deprecated-controller"
+        ],
+        "summary": "View a list of city suggestions for given prefix",
+        "description": "Returned address object's street and street number will be empty.",
+        "operationId": "suggestDeprecatedCitiesUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "Token to autocomplete",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipcode",
+            "in": "query",
+            "description": "Zipcode to filter cities",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Address"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1.0/address-lookup/resolve": {
+      "get": {
+        "tags": [
+          "address-deprecated-controller"
+        ],
+        "summary": "Resolve given address and return the normalized address including its klsId",
+        "operationId": "resolveDeprecatedAddressUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "city",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "street",
+            "in": "query",
+            "description": "street",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "streetnumber",
+            "in": "query",
+            "description": "streetnumber",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "zipcode",
+            "in": "query",
+            "description": "zipcode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Address"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1.0/address-lookup/streetnumbers": {
+      "get": {
+        "tags": [
+          "address-deprecated-controller"
+        ],
+        "summary": "View a list of streetnumbers suggestions for given prefix",
+        "operationId": "suggestDeprecatedHousenumbersUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "City to filter addresses",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "street",
+            "in": "query",
+            "description": "Street to filter addresses",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "streetnumber",
+            "in": "query",
+            "description": "Token to autocomplete",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipcode",
+            "in": "query",
+            "description": "Zipcode to filter addresses",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Address"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1.0/address-lookup/streets": {
+      "get": {
+        "tags": [
+          "address-deprecated-controller"
+        ],
+        "summary": "View a list of streets suggestions for given prefix",
+        "description": "Returned address object's street number field will always be empty.<br />One of city or zipcode has to be passed as filter.",
+        "operationId": "suggestDeprecatedStreetsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "City to filter streets",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "street",
+            "in": "query",
+            "description": "Token to autocomplete",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipcode",
+            "in": "query",
+            "description": "Zipcode to filter streets",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Address"
+              }
+            }
+          },
+          "400": {
+            "description": "Filter missing"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1.0/address-lookup/zipcodes": {
+      "get": {
+        "tags": [
+          "address-deprecated-controller"
+        ],
+        "summary": "View a list of zipcode suggestions for given prefix",
+        "description": "Returned address object's street and street number will be empty.",
+        "operationId": "suggestDeprecatedZipcodesUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "City to filter zipcodes",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "zipcode",
+            "in": "query",
+            "description": "Token to autocomplete",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Address"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/error": {
+      "get": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "head": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingHEAD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      },
+      "options": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingOPTIONS",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "basic-error-controller"
+        ],
+        "summary": "error",
+        "operationId": "errorUsingPATCH",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "required": [
+        "city",
+        "district",
+        "street",
+        "streetnumber",
+        "zipcode"
+      ],
+      "properties": {
+        "city": {
+          "type": "string",
+          "example": "Wiesbaden",
+          "description": "the city of an address"
+        },
+        "deleted": {
+          "type": "boolean",
+          "description": "ignore this address when querying"
+        },
+        "district": {
+          "type": "string",
+          "example": "Mitte",
+          "description": "the district of an address"
+        },
+        "klsId": {
+          "type": "string",
+          "example": 2981739123,
+          "description": "the numeric klsId of this address"
+        },
+        "street": {
+          "type": "string",
+          "example": "Buergermeister Ludwig Strasse",
+          "description": "the street of an address"
+        },
+        "streetShort": {
+          "type": "string",
+          "example": "Bgm. Ludwig Str.",
+          "description": "the short street of an address"
+        },
+        "streetnumber": {
+          "type": "string",
+          "example": 5,
+          "description": "the street number of an address"
+        },
+        "zipcode": {
+          "type": "string",
+          "example": 65185,
+          "description": "the zipcode of an address"
+        }
+      },
+      "title": "Address",
+      "description": "Class representing an address / autocompletion."
+    },
+    "AddressInfo": {
+      "type": "object",
+      "properties": {
+        "distributionAreaName": {
+          "type": "string",
+          "example": "Rieg district",
+          "description": "the district nameof an address"
+        },
+        "houseNumber": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "the house number of an address"
+        },
+        "houseNumberSupplement": {
+          "type": "string",
+          "example": "A",
+          "description": "the house number supplement of an address"
+        },
+        "houseQualifier": {
+          "type": "string",
+          "example": "5 A",
+          "description": "the full house number of an address"
+        },
+        "klsId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2981739123,
+          "description": "the numeric klsId of this address"
+        },
+        "municipalityName": {
+          "type": "string",
+          "example": "Wiesbaden",
+          "description": "the city of an address"
+        },
+        "streetName": {
+          "type": "string",
+          "example": "Buergermeister Ludwig Strasse",
+          "description": "the street of an address"
+        },
+        "streetNameShort": {
+          "type": "string",
+          "example": "Bgm. Ludwig Str.",
+          "description": "the short street of an address"
+        },
+        "zipCode": {
+          "type": "string",
+          "example": 65185,
+          "description": "the zipcode of an address"
+        }
+      },
+      "title": "AddressInfo",
+      "description": "Class representing an address / autocompletion."
+    },
+    "AddressSearchCriteria": {
+      "type": "object",
+      "properties": {
+        "klsIds": {
+          "type": "array",
+          "description": "List of klsIds",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maxResults": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximal number of results to be returned"
+        },
+        "onkz": {
+          "type": "string",
+          "description": "Onkz value"
+        },
+        "zipCode": {
+          "type": "string",
+          "description": "Zipcode value"
+        }
+      },
+      "title": "AddressSearchCriteria",
+      "description": "Object with criteria for address search "
+    },
+    "AddressSuggestion": {
+      "type": "object",
+      "properties": {
+        "addressSuggestion": {
+          "type": "string",
+          "example": "65185, Wiesbaden, Buergermeister Ludwig Strasse, 5 A",
+          "description": "Address suggestion representation"
+        },
+        "distributionAreaName": {
+          "type": "string",
+          "example": "Rieg district",
+          "description": "the district nameof an address"
+        },
+        "geoLatitude": {
+          "type": "number",
+          "format": "double",
+          "example": "3,11858",
+          "description": "In KLS system: GEO_LAENGE, Latitude as a decimal value, аormat (999,99999) = max. 9 figures"
+        },
+        "geoLongitude": {
+          "type": "number",
+          "format": "double",
+          "example": "30,09157",
+          "description": "In KLS system: GEO_BREITE, Longitude as a decimal value, аormat (999,99999) = max. 9 figures"
+        },
+        "houseNumber": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "the house number of an address"
+        },
+        "houseNumberSupplement": {
+          "type": "string",
+          "example": "A",
+          "description": "the house number supplement of an address"
+        },
+        "houseQualifier": {
+          "type": "string",
+          "example": "5 A",
+          "description": "the full house number of an address"
+        },
+        "klsId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2981739123,
+          "description": "the numeric klsId of this address"
+        },
+        "municipalityName": {
+          "type": "string",
+          "example": "Wiesbaden",
+          "description": "the city of an address"
+        },
+        "streetName": {
+          "type": "string",
+          "example": "Buergermeister Ludwig Strasse",
+          "description": "the street of an address"
+        },
+        "streetNameShort": {
+          "type": "string",
+          "example": "Bgm. Ludwig Str.",
+          "description": "the short street of an address"
+        },
+        "zipCode": {
+          "type": "string",
+          "example": 65185,
+          "description": "the zipcode of an address"
+        }
+      },
+      "title": "AddressSuggestion",
+      "description": "Class representing an address autocompled suggestion."
+    },
+    "FullAddressInfo": {
+      "type": "object",
+      "properties": {
+        "administrativeDistrict": {
+          "type": "string",
+          "example": "MS Landkreis geä. 05.02.09",
+          "description": "In KLS system: LANDKREIS_NAME, Name of the administrative districts"
+        },
+        "administrativeDistrictSupplement": {
+          "type": "string",
+          "example": "B",
+          "description": "In KLS system: LANDKREIS_ZUSATZ, Additional Name of the administrative district"
+        },
+        "asb": {
+          "type": "string",
+          "example": 9911,
+          "description": "In KLS system: ASB, Connection area number"
+        },
+        "cityDistrict": {
+          "type": "string",
+          "example": "MS Regierungsbezirk  geä. 05.02.09",
+          "description": "In KLS system: BEZIRK, Governmental district"
+        },
+        "distributionAreaId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 106750,
+          "description": "In KLS system: ID_WOHNORT"
+        },
+        "distributionAreaKey": {
+          "type": "string",
+          "example": 12445400,
+          "description": "In KLS system: WOHNORT_GDGTNR, LOCAL-KEY (1-8)"
+        },
+        "distributionAreaName": {
+          "type": "string",
+          "description": "In KLS system: WOHNORT_NAME, Name of the place of residence"
+        },
+        "distributionAreaNameSupplement": {
+          "type": "string",
+          "description": "In KLS system: WOHNORT_ZUSATZ, Additional Name of the place of residence"
+        },
+        "distributionAreaPartValue": {
+          "type": "string",
+          "example": "000",
+          "description": "In KLS system: WOHNORT_GDGTNR,  MUNICIPALITY-PART VALUE (9-11)"
+        },
+        "federalState": {
+          "type": "string",
+          "example": "MSB",
+          "description": "In KLS system: BUNDESLAND, Federal state "
+        },
+        "geoLatitude": {
+          "type": "number",
+          "format": "double",
+          "example": "3,11858",
+          "description": "In KLS system: GEO_LAENGE, Latitude as a decimal value, аormat (999,99999) = max. 9 figures"
+        },
+        "geoLongitude": {
+          "type": "number",
+          "format": "double",
+          "example": "30,09157",
+          "description": "In KLS system: GEO_BREITE, Longitude as a decimal value, аormat (999,99999) = max. 9 figures"
+        },
+        "houseNumber": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "In KLS system: HAUSNUMMER, The house number of an address"
+        },
+        "houseNumberSupplement": {
+          "type": "string",
+          "example": "A",
+          "description": "In KLS system: HSNR_ZUSATZ, The house number supplement of an address"
+        },
+        "houseQualifier": {
+          "type": "string",
+          "example": "5 A",
+          "description": "In KLS system: -, The full house number of an address"
+        },
+        "klsId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2981739123,
+          "description": "In KLS system: ID, The numeric klsId of this address"
+        },
+        "municipalityId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 106750,
+          "description": "In KLS system: ID_GEMEINDE"
+        },
+        "municipalityKey": {
+          "type": "string",
+          "example": 12965400,
+          "description": "In KLS system: GEMEINDE_GDGTNR, LOCAL-KEY (1-8)"
+        },
+        "municipalityName": {
+          "type": "string",
+          "example": "Wiesbaden",
+          "description": "In KLS system: GEMEINDE_NAME, The municipality of an address"
+        },
+        "municipalityNameSupplement": {
+          "type": "string",
+          "description": "In KLS system: GEMEINDE_ZUSATZ, Additional Name of the municipality"
+        },
+        "municipalityPartValue": {
+          "type": "string",
+          "example": "000",
+          "description": "In KLS system: GEMEINDE_GDGTNR, MUNICIPALITY-PART VALUE (9-11)"
+        },
+        "onkz": {
+          "type": "string",
+          "example": 9990,
+          "description": "In KLS system: ONKZ, Local net area identification number"
+        },
+        "propertyId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2981739124,
+          "description": "DEPRECTED, see field propertyIdLong"
+        },
+        "propertyIdLong": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2981739124,
+          "description": "In KLS system: OBJEKT_ID"
+        },
+        "streetId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1457497,
+          "description": "In KLS system: ID_STRASSE"
+        },
+        "streetName": {
+          "type": "string",
+          "example": "Buergermeister Ludwig Strasse",
+          "description": "In KLS system: STRASSE_NAME, The street of an address"
+        },
+        "streetNameShort": {
+          "type": "string",
+          "example": "Bgm. Ludwig Str.",
+          "description": "In KLS system: STRASSE_KURZ, The short street of an address"
+        },
+        "zipCode": {
+          "type": "string",
+          "example": 65185,
+          "description": "In KLS system: POSTLEITZAHL, the zipcode of an address"
+        }
+      },
+      "title": "FullAddressInfo",
+      "description": "Encapsulate all address data information"
+    },
+    "ModelAndView": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "object"
+        },
+        "modelMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "reference": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "100 CONTINUE",
+            "101 SWITCHING_PROTOCOLS",
+            "102 PROCESSING",
+            "103 CHECKPOINT",
+            "200 OK",
+            "201 CREATED",
+            "202 ACCEPTED",
+            "203 NON_AUTHORITATIVE_INFORMATION",
+            "204 NO_CONTENT",
+            "205 RESET_CONTENT",
+            "206 PARTIAL_CONTENT",
+            "207 MULTI_STATUS",
+            "208 ALREADY_REPORTED",
+            "226 IM_USED",
+            "300 MULTIPLE_CHOICES",
+            "301 MOVED_PERMANENTLY",
+            "302 FOUND",
+            "302 MOVED_TEMPORARILY",
+            "303 SEE_OTHER",
+            "304 NOT_MODIFIED",
+            "305 USE_PROXY",
+            "307 TEMPORARY_REDIRECT",
+            "308 PERMANENT_REDIRECT",
+            "400 BAD_REQUEST",
+            "401 UNAUTHORIZED",
+            "402 PAYMENT_REQUIRED",
+            "403 FORBIDDEN",
+            "404 NOT_FOUND",
+            "405 METHOD_NOT_ALLOWED",
+            "406 NOT_ACCEPTABLE",
+            "407 PROXY_AUTHENTICATION_REQUIRED",
+            "408 REQUEST_TIMEOUT",
+            "409 CONFLICT",
+            "410 GONE",
+            "411 LENGTH_REQUIRED",
+            "412 PRECONDITION_FAILED",
+            "413 PAYLOAD_TOO_LARGE",
+            "413 REQUEST_ENTITY_TOO_LARGE",
+            "414 URI_TOO_LONG",
+            "414 REQUEST_URI_TOO_LONG",
+            "415 UNSUPPORTED_MEDIA_TYPE",
+            "416 REQUESTED_RANGE_NOT_SATISFIABLE",
+            "417 EXPECTATION_FAILED",
+            "418 I_AM_A_TEAPOT",
+            "419 INSUFFICIENT_SPACE_ON_RESOURCE",
+            "420 METHOD_FAILURE",
+            "421 DESTINATION_LOCKED",
+            "422 UNPROCESSABLE_ENTITY",
+            "423 LOCKED",
+            "424 FAILED_DEPENDENCY",
+            "425 TOO_EARLY",
+            "426 UPGRADE_REQUIRED",
+            "428 PRECONDITION_REQUIRED",
+            "429 TOO_MANY_REQUESTS",
+            "431 REQUEST_HEADER_FIELDS_TOO_LARGE",
+            "451 UNAVAILABLE_FOR_LEGAL_REASONS",
+            "500 INTERNAL_SERVER_ERROR",
+            "501 NOT_IMPLEMENTED",
+            "502 BAD_GATEWAY",
+            "503 SERVICE_UNAVAILABLE",
+            "504 GATEWAY_TIMEOUT",
+            "505 HTTP_VERSION_NOT_SUPPORTED",
+            "506 VARIANT_ALSO_NEGOTIATES",
+            "507 INSUFFICIENT_STORAGE",
+            "508 LOOP_DETECTED",
+            "509 BANDWIDTH_LIMIT_EXCEEDED",
+            "510 NOT_EXTENDED",
+            "511 NETWORK_AUTHENTICATION_REQUIRED"
+          ]
+        },
+        "view": {
+          "$ref": "#/definitions/View"
+        },
+        "viewName": {
+          "type": "string"
+        }
+      },
+      "title": "ModelAndView"
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "required": [
+        "title",
+        "type"
+      ],
+      "properties": {
+        "detail": {
+          "type": "string",
+          "description": "detail"
+        },
+        "embedded": {
+          "description": "embedded",
+          "$ref": "#/definitions/SpecificProblemDetails"
+        },
+        "instance": {
+          "type": "string",
+          "description": "instance"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "status"
+        },
+        "title": {
+          "type": "string",
+          "description": "title"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        }
+      },
+      "title": "ProblemDetails",
+      "description": "Error response of 4xx and 5xx http statuses."
+    },
+    "SpecificProblemDetails": {
+      "type": "object",
+      "required": [
+        "code",
+        "reason"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "code"
+        },
+        "message": {
+          "type": "string",
+          "description": "message"
+        },
+        "reason": {
+          "type": "string",
+          "description": "reason"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "status"
+        }
+      },
+      "title": "SpecificProblemDetails",
+      "description": "Specific problem details(including fehlerbuildnummer code)."
+    },
+    "View": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        }
+      },
+      "title": "View"
+    },
+    "ZipcodeMunicipalityNameDTO": {
+      "type": "object",
+      "properties": {
+        "municipalityName": {
+          "type": "string",
+          "example": "Wiesbaden",
+          "description": "the city of an address"
+        },
+        "zipCode": {
+          "type": "string",
+          "example": 65185,
+          "description": "In KLS system: POSTLEITZAHL, the zipcode of an address"
+        }
+      },
+      "title": "ZipcodeMunicipalityNameDTO",
+      "description": "Class representing an zipCode/city pair"
+    }
+  }
+}
