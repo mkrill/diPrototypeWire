@@ -30,7 +30,7 @@ var (
 func main() {
 	// set runtimeConfig, usually from config file
 	runtimeConfig := providers.RuntimeConfig{
-		Host:                  "wiremock-acc-proxy-pacman-01.support.magic.telekom.de",
+		Host:                  os.Getenv("HOST"),
 		Username:              os.Getenv("USERNAME"),
 		Password:              os.Getenv("PASSWORD"),
 		UseFakeAddressService: false,
