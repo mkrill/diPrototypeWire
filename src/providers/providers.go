@@ -20,11 +20,21 @@ func ProvideAdressLookupClient(runtime *runtimeClient.Runtime) *client.AddressLo
 	return addressLookup
 }
 
-func ProvideRuntimeClient(config RuntimeConfig) *runtimeClient.Runtime {
+func ProvideRuntimeClient(config RuntimeConfig) (*runtimeClient.Runtime, error) {
 	runtime := runtimeClient.New(
 		config.Host,
 		"/",
 		[]string{"https"})
 	runtime.DefaultAuthentication = runtimeClient.BasicAuth(config.Username, config.Password)
-	return runtime
+
+	// switch of verification of server side certificate (ok for prototype)
+	tlsTransport, err := runtimeClient.TLSTransport(runtimeClient.TLSClientOptions{
+		InsecureSkipVerify: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+	runtime.Transport = tlsTransport
+
+	return runtime, nil
 }

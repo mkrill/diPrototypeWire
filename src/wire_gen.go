@@ -14,7 +14,10 @@ import (
 // Injectors from wire.go:
 
 func InitializeRealController(config providers.RuntimeConfig) (*controller.RootController, error) {
-	runtime := providers.ProvideRuntimeClient(config)
+	runtime, err := providers.ProvideRuntimeClient(config)
+	if err != nil {
+		return nil, err
+	}
 	addressLookup := providers.ProvideAdressLookupClient(runtime)
 	realAddressService := infrastructure.ProvideRealAddressService(addressLookup)
 	rootController, err := controller.ProvideController(realAddressService)
