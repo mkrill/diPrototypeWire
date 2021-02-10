@@ -5,7 +5,7 @@ package main
 import (
 	"github.com/google/wire"
 
-	"github.com/mkrill/diPrototypeWire/src/controller"
+	"github.com/mkrill/diPrototypeWire/src/interfaces/controller"
 	"github.com/mkrill/diPrototypeWire/src/providers"
 )
 

@@ -6,10 +6,10 @@ import (
 
 	"github.com/google/wire"
 
-	"github.com/mkrill/diPrototypeWire/src/controller"
+	"github.com/mkrill/diPrototypeWire/src/domain/services"
 	"github.com/mkrill/diPrototypeWire/src/infrastructure"
+	"github.com/mkrill/diPrototypeWire/src/interfaces/controller"
 	"github.com/mkrill/diPrototypeWire/src/providers"
-	"github.com/mkrill/diPrototypeWire/src/services"
 )
 
 var (

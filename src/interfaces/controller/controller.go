@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/mkrill/diPrototypeWire/src/services"
+	"github.com/mkrill/diPrototypeWire/src/domain/services"
 )
 
 type RootController struct {

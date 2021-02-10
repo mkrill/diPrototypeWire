@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/mkrill/diPrototypeWire/src/domain/models"
 	"github.com/mkrill/diPrototypeWire/src/infrastructure/client"
 	"github.com/mkrill/diPrototypeWire/src/infrastructure/client/address_search"
-	"github.com/mkrill/diPrototypeWire/src/models"
 )
 
 type RealAddressService struct {

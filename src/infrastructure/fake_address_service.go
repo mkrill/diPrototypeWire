@@ -5,7 +5,7 @@ package infrastructure
 import (
 	"errors"
 
-	"github.com/mkrill/diPrototypeWire/src/models"
+	"github.com/mkrill/diPrototypeWire/src/domain/models"
 )
 
 // FakeAddressService has no attributes, because it does not need a backend address or a client to be stored
