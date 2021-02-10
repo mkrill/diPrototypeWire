@@ -6,6 +6,7 @@ import (
 
 	"github.com/google/wire"
 
+	"github.com/mkrill/diPrototypeWire/src/domain/models"
 	"github.com/mkrill/diPrototypeWire/src/domain/services"
 	"github.com/mkrill/diPrototypeWire/src/infrastructure"
 	"github.com/mkrill/diPrototypeWire/src/interfaces/controller"
@@ -28,6 +29,16 @@ var (
 )
 
 func main() {
+
+	var err error
+
+	config, err := providers.ProvideConfig("config.yml")
+	if err != nil {
+		fmt.Printf("\nConfig: %s\n", err.Error())
+		os.Exit(2)
+	}
+	fmt.Printf("\nConfig-File contents\n=> %s\n", config)
+
 	// set runtimeConfig, usually from config file
 	runtimeConfig := providers.RuntimeConfig{
 		Host:                  os.Getenv("HOST"),
@@ -36,40 +47,42 @@ func main() {
 		UseFakeAddressService: false,
 	}
 
-	err := createRealController(runtimeConfig)
+	raResult, err := createAndExecuteRealController(runtimeConfig)
 	if err != nil {
-		fmt.Printf("\nRealAdapter: %s\n", err.Error())
+		fmt.Printf("\nRealAdapter-Error: %s\n", err.Error())
+		os.Exit(2)
 	}
+	fmt.Printf("\nRealAdapter-Result: %v\n", raResult)
 
-	err = createFakeController()
+	faResult, err := createAndExecuteFakeController()
 	if err != nil {
-		fmt.Printf("\nFakeAdapter: %s\n", err.Error())
+		fmt.Printf("\nFakeAdapter-Error: %s\n", err.Error())
+		os.Exit(2)
 	}
+	fmt.Printf("\nFakeAdapter-Result: %v\n", faResult)
 }
 
-func createFakeController() error {
+func createAndExecuteFakeController() (*models.Address, error) {
 	fakeController, err := InitializeFakeController()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	faResult, err := fakeController.AddressService.FullAddressInfo("Landgrabenweg", "151", "53227", "Bonn")
 	if err != nil {
-		return err
+		return nil, err
 	}
-	fmt.Printf("FakeAdapter: %v\n", faResult)
-	return nil
+	return faResult, nil
 }
 
-func createRealController(runtimeConfig providers.RuntimeConfig) error {
+func createAndExecuteRealController(runtimeConfig providers.RuntimeConfig) (*models.Address, error) {
 	realController, err := InitializeRealController(runtimeConfig)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	raResult, err := realController.AddressService.FullAddressInfo("Landgrabenweg", "151", "53227", "Bonn")
 	if err != nil {
-		return err
+		return nil, err
 	}
-	fmt.Printf("RealAdapter: %v\n", raResult)
-	return nil
+	return raResult, nil
 }
