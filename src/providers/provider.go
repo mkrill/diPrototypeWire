@@ -66,7 +66,7 @@ func ProvideRuntimeClient(config RuntimeConfig) (*runtimeClient.Runtime, error) 
 		[]string{"https"})
 	runtime.DefaultAuthentication = runtimeClient.BasicAuth(config.Username, config.Password)
 
-	// switch of verification of server side certificate (ok for prototype)
+	// configure ca certificate to be trusted, set InsecureSkipVerify to switch off certificate check
 	tlsTransport, err := runtimeClient.TLSTransport(runtimeClient.TLSClientOptions{
 		CA:                 "certificates/ca_pub_certificate.pem",
 		InsecureSkipVerify: false,
