@@ -68,7 +68,8 @@ func ProvideRuntimeClient(config RuntimeConfig) (*runtimeClient.Runtime, error) 
 
 	// switch of verification of server side certificate (ok for prototype)
 	tlsTransport, err := runtimeClient.TLSTransport(runtimeClient.TLSClientOptions{
-		InsecureSkipVerify: true,
+		CA:                 "certificates/ca_pub_certificate.pem",
+		InsecureSkipVerify: false,
 	})
 	if err != nil {
 		return nil, err
