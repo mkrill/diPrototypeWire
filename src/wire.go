@@ -5,11 +5,11 @@ package main
 import (
 	"github.com/google/wire"
 
+	"github.com/mkrill/diPrototypeWire/src/helpers"
 	"github.com/mkrill/diPrototypeWire/src/interfaces/controller"
-	"github.com/mkrill/diPrototypeWire/src/providers"
 )
 
-func InitializeRealController(config providers.RuntimeConfig) (*controller.RootController, error) {
+func InitializeRealController(host helpers.Host, username helpers.Username, password helpers.Password) (*controller.RootController, error) {
 	wire.Build(realControllerSet)
 	// value returned just to satisfy the compiler, will be ignored
 	return &controller.RootController{}, nil

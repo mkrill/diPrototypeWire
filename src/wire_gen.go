@@ -6,19 +6,19 @@
 package main
 
 import (
+	"github.com/mkrill/diPrototypeWire/src/helpers"
 	"github.com/mkrill/diPrototypeWire/src/infrastructure"
 	"github.com/mkrill/diPrototypeWire/src/interfaces/controller"
-	"github.com/mkrill/diPrototypeWire/src/providers"
 )
 
 // Injectors from wire.go:
 
-func InitializeRealController(config providers.RuntimeConfig) (*controller.RootController, error) {
-	runtime, err := providers.ProvideRuntimeClient(config)
+func InitializeRealController(host helpers.Host, username helpers.Username, password helpers.Password) (*controller.RootController, error) {
+	runtime, err := helpers.ProvideRuntimeClient(host, username, password)
 	if err != nil {
 		return nil, err
 	}
-	addressLookup := providers.ProvideAdressLookupClient(runtime)
+	addressLookup := helpers.ProvideAdressLookupClient(runtime)
 	realAddressService := infrastructure.ProvideRealAddressService(addressLookup)
 	rootController, err := controller.ProvideController(realAddressService)
 	if err != nil {

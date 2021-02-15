@@ -1,5 +1,2 @@
 address:
-  host: "%%ENV:USERNAME%%"
-  username: '%%ENV:USERNAME%%'
-  password: "%%ENV:PASSWORD%%"
   useFakeAddressService: false

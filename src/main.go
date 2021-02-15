@@ -8,15 +8,15 @@ import (
 
 	"github.com/mkrill/diPrototypeWire/src/domain/models"
 	"github.com/mkrill/diPrototypeWire/src/domain/services"
+	"github.com/mkrill/diPrototypeWire/src/helpers"
 	"github.com/mkrill/diPrototypeWire/src/infrastructure"
 	"github.com/mkrill/diPrototypeWire/src/interfaces/controller"
-	"github.com/mkrill/diPrototypeWire/src/providers"
 )
 
 var (
 	realControllerSet = wire.NewSet(
-		providers.ProvideRuntimeClient,
-		providers.ProvideAdressLookupClient,
+		helpers.ProvideRuntimeClient,
+		helpers.ProvideAdressLookupClient,
 		infrastructure.ProvideRealAddressService,
 		wire.Bind(new(services.AddressService), new(*infrastructure.RealAddressService)),
 		controller.ProvideController,
@@ -30,36 +30,31 @@ var (
 
 func main() {
 
+	const configFile = "config.yml"
 	var err error
 
-	config, err := providers.ProvideConfig("config.yml")
+	projectConfig, err := helpers.NewConfig(configFile)
 	if err != nil {
-		fmt.Printf("\nConfig: %s\n", err.Error())
+		fmt.Printf("\nError reading %s: %s\n", configFile, err.Error())
 		os.Exit(2)
 	}
-	fmt.Printf("\nConfig-File contents\n=> %s\n", config)
+	fmt.Printf("\nConfig-File contents\n=> %s\n", projectConfig)
 
-	// set runtimeConfig, usually from config file
-	runtimeConfig := providers.RuntimeConfig{
-		Host:                  os.Getenv("HOST"),
-		Username:              os.Getenv("USERNAME"),
-		Password:              os.Getenv("PASSWORD"),
-		UseFakeAddressService: false,
+	if projectConfig != nil && projectConfig.Address.UseFakeAddressService {
+		faResult, err := createAndExecuteFakeController()
+		if err != nil {
+			fmt.Printf("\nFakeAdapter-Error: %s\n", err.Error())
+			os.Exit(2)
+		}
+		fmt.Printf("\nFakeAdapter-Result: %v\n", faResult)
+	} else if projectConfig != nil && !projectConfig.Address.UseFakeAddressService {
+		raResult, err := createAndExecuteRealController()
+		if err != nil {
+			fmt.Printf("\nRealAdapter-Error: %s\n", err.Error())
+			os.Exit(2)
+		}
+		fmt.Printf("\nRealAdapter-Result: %v\n", raResult)
 	}
-
-	raResult, err := createAndExecuteRealController(runtimeConfig)
-	if err != nil {
-		fmt.Printf("\nRealAdapter-Error: %s\n", err.Error())
-		os.Exit(2)
-	}
-	fmt.Printf("\nRealAdapter-Result: %v\n", raResult)
-
-	faResult, err := createAndExecuteFakeController()
-	if err != nil {
-		fmt.Printf("\nFakeAdapter-Error: %s\n", err.Error())
-		os.Exit(2)
-	}
-	fmt.Printf("\nFakeAdapter-Result: %v\n", faResult)
 }
 
 func createAndExecuteFakeController() (*models.Address, error) {
@@ -75,12 +70,17 @@ func createAndExecuteFakeController() (*models.Address, error) {
 	return faResult, nil
 }
 
-func createAndExecuteRealController(runtimeConfig providers.RuntimeConfig) (*models.Address, error) {
-	realController, err := InitializeRealController(runtimeConfig)
+func createAndExecuteRealController() (*models.Address, error) {
+	host := helpers.Host(os.Getenv("HOST"))
+	username := helpers.Username(os.Getenv("USERNAME"))
+	password := helpers.Password(os.Getenv("PASSWORD"))
+
+	realController, err := InitializeRealController(host, username, password)
 	if err != nil {
 		return nil, err
 	}
-	raResult, err := realController.AddressService.FullAddressInfo("Landgrabenweg", "151", "53227", "Bonn")
+
+	raResult, err := realController.AddressService.FullAddressInfo("Ahornweg", "1", "34227", "Heimerdingen")
 	if err != nil {
 		return nil, err
 	}
